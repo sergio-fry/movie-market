@@ -10,9 +10,12 @@ describe Movie do
       title: 'Some Movie',
       release_date: 3.years.ago,
       actors: ['Steven Seagal', 'Arnold Schwarzenegger', 'Robert De Niro'],
-      country: 'Russia'
+      country: 'Poland'
     }
   end
+
+  let(:usa_attributes) { default_attributes.merge({ country: 'USA'}) }
+  let(:russia_attributes) { default_attributes.merge({ country: 'Russia' }) }
 
   it { is_expected.to be_a(Movie) }
 
@@ -26,6 +29,16 @@ describe Movie do
 
   it 'has a contry' do
     expect(movie.country).to be_a String
+  end
+
+  context 'test movie' do
+    let(:base_movie) { Movie.new(default_attributes) }
+    let(:russian_movie) { Movie.new(russia_attributes) }
+    let(:usa_movie) { Movie.new(usa_attributes) }
+
+    it { expect(russian_movie.price).to eq (base_movie.price + 4) }
+    it { expect(usa_movie.price).to eq (base_movie.price + 2) }
+
   end
 
   context 'older than a year' do
